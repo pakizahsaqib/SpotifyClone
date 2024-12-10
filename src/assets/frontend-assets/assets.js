@@ -80,7 +80,7 @@ export const albumsData = [
     id: 0,
     name: "Top 50 Global",
     image: img8,
-    desc: "Your weekly update of the most played tracks",
+    desc: "Your weekly update of the most played tracks right now - Global.",
     bgColor: "#2a4365",
   },
   {
@@ -128,6 +128,7 @@ export const songsData = [
     file: song1,
     desc: "Put a smile on your face with these happy tunes",
     duration: "3:00",
+    plays: 1234566,
   },
   {
     id: 1,
@@ -136,6 +137,7 @@ export const songsData = [
     file: song2,
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:20",
+    plays: 1234566,
   },
   {
     id: 2,
@@ -144,6 +146,7 @@ export const songsData = [
     file: song3,
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:32",
+    plays: 1234566,
   },
   {
     id: 3,
@@ -152,6 +155,7 @@ export const songsData = [
     file: song1,
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:50",
+    plays: 1234566,
   },
   {
     id: 4,
@@ -160,6 +164,7 @@ export const songsData = [
     file: song2,
     desc: "Put a smile on your face with these happy tunes",
     duration: "3:10",
+    plays: 1234566,
   },
   {
     id: 5,
@@ -168,6 +173,7 @@ export const songsData = [
     file: song3,
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:45",
+    plays: 1234566,
   },
   {
     id: 6,
@@ -176,6 +182,7 @@ export const songsData = [
     file: song1,
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:18",
+    plays: 1234566,
   },
   {
     id: 7,
@@ -184,5 +191,49 @@ export const songsData = [
     file: song2,
     desc: "Put a smile on your face with these happy tunes",
     duration: "2:35",
+    plays: 1234566,
+  },
+];
+
+export const artistsData = [
+  {
+    id: 0,
+    name: "Atif Aslam",
+    image: img1,
+  },
+  {
+    id: 1,
+    name: "Arijit Singh",
+    image: img2,
+  },
+  {
+    id: 2,
+    name: "Pritam",
+    image: img3,
+  },
+  {
+    id: 3,
+    name: "Asim Azhar",
+    image: img4,
+  },
+  {
+    id: 4,
+    name: "Aima Baig",
+    image: img5,
+  },
+  {
+    id: 5,
+    name: "Rahat Fateh Ali Khan",
+    image: img14,
+  },
+  {
+    id: 6,
+    name: "Ritviz",
+    image: img7,
+  },
+  {
+    id: 7,
+    name: "Shreya Goshal",
+    image: img12,
   },
 ];

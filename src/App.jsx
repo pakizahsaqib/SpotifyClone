@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="h-screen bg-black">
       <Navbar />
-      <div className="h-[90%] m-0 flex">
+      <div className="h-[80%] m-0 flex">
         <Sidebar />
         <MainLayout />
       </div>
