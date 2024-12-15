@@ -8,20 +8,15 @@ const Dashboard = () => {
   const [accessToken, setAccessToken] = useState("");
   const [tracks, setTracks] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
-  let totalDuration;
+  const [formattedDuration, setFormattedDuration] = useState("");
   const saves = 1530938;
-  let newEntries;
-  let id = 1;
-  var minutes;
-  var seconds;
-  var formattedDuration;
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     let token = urlParams.get("access_token");
 
     if (!token) {
-      token = localStorage.getItem("access_token"); // Fallback to localStorage
+      token = localStorage.getItem("access_token");
     }
 
     setAccessToken(token);
@@ -55,19 +50,28 @@ const Dashboard = () => {
         }
       );
       setTracks(response.data.items);
+
+      // Calculate total duration and format it
+      const totalDuration = response.data.items.reduce(
+        (acc, track) => acc + track.track.duration_ms,
+        0
+      );
+      formatDuration(totalDuration);
     } catch (error) {
       console.error("Error fetching tracks:", error);
     }
   };
 
   const handlePlaylistClick = (playlist) => {
-    setSelectedPlaylist(playlist); // Store selected playlist
-    fetchTracks(playlist.id); // Fetch tracks for this playlist
-    totalDuration = playlist.reduce((acc, track) => acc + track.duration_ms, 0);
-    newEntries = playlist.tracks.length;
-    minutes = Math.floor(totalDuration / 60000); // Convert to minutes
-    seconds = Math.floor((totalDuration % 60000) / 1000); // Get the remaining seconds
-    formattedDuration = `${minutes} hr ${seconds} min`;
+    setSelectedPlaylist(playlist);
+    fetchTracks(playlist.id);
+  };
+
+  const formatDuration = (durationMs) => {
+    const totalMinutes = Math.floor(durationMs / 60000);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    setFormattedDuration(`${hours} hr ${minutes} min`);
   };
 
   return (
@@ -75,10 +79,7 @@ const Dashboard = () => {
       <h1>Your Playlists</h1>
       <ul>
         {playlists.map((playlist) => (
-          <li
-            key={playlist.id}
-            onClick={() => handlePlaylistClick(playlist)} // Pass the entire playlist object
-          >
+          <li key={playlist.id} onClick={() => handlePlaylistClick(playlist)}>
             <div>{playlist.name}</div>
           </li>
         ))}
@@ -89,7 +90,7 @@ const Dashboard = () => {
           <div className="mt-10 flex gap-8 flex-col md:flex-row md:items-end">
             <img
               className="w-48 rounded"
-              src={selectedPlaylist.images[0]?.url} // Display playlist image
+              src={selectedPlaylist.images[0]?.url}
               alt={selectedPlaylist.name}
             />
             <div className="flex flex-col">
@@ -109,7 +110,7 @@ const Dashboard = () => {
                 <b>Spotify</b>
                 <p className="font-light text-sm inline-block">
                   • {saves.toLocaleString()} saves • about {formattedDuration} •{" "}
-                  {newEntries} new entries
+                  {tracks.length} new entries
                 </p>
               </p>
             </div>
@@ -141,7 +142,6 @@ const Dashboard = () => {
                 artists={track.track.artists
                   .map((artist) => artist.name)
                   .join(", ")}
-                id={id++}
               />
             ))}
           </div>
