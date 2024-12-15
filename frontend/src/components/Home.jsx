@@ -1,7 +1,6 @@
 // import React from "react";
 // import { albumsData } from "../assets/frontend-assets/assets";
 // import { songsData } from "../assets/frontend-assets/assets";
-// import { artistsData } from "../assets/frontend-assets/assets";
 // import AlbumItem from "./AlbumItem";
 // import SongItem from "./SongItem";
 // import ArtistItem from "./ArtistItem";
@@ -24,17 +23,7 @@
 //       <div className="mb-4">
 //         <h1 className="my-5 font-bold text-2xl">Popular Artists</h1>
 //         <div className="flex overflow-auto">
-//           {artistsData.map((item, index) => {
-//             return (
-//               <ArtistItem
-//                 key={index}
-//                 name={item.name}
-//                 desc={item.desc}
-//                 id={item.id}
-//                 image={item.image}
-//               />
-//             );
-//           })}
+//           <ArtistItem />
 //         </div>
 //       </div>
 //       <div className="mb-4">
@@ -74,51 +63,18 @@
 // };
 
 // export default Home;
-import React, { useState, useEffect } from "react";
 
-const Home = () => {
-  const [playlists, setPlaylists] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPlaylists = async () => {
-      const accessToken = "YOUR_SPOTIFY_ACCESS_TOKEN"; // Replace with your access token
-      const userId = "31txkybmohzmlxajutfzwx3frs4y"; // User ID
-      const url = `https://api.spotify.com/v1/users/${userId}/playlists?offset=0&limit=50&locale=en-US,en;q=0.9`;
-
-      const response = await fetch(url, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      const data = await response.json();
-      setPlaylists(data.items); // Save the playlist items to state
-      setLoading(false);
-    };
-
-    fetchPlaylists();
-  }, []);
+const Home = ({ selectedPlaylist }) => {
+  console.log("Received selectedPlaylist:", selectedPlaylist);
 
   return (
-    <div>
-      <h1>Playlists</h1>
-      {loading ? (
-        <p>Loading playlists...</p>
-      ) : (
+    <div className="p-4">
+      {selectedPlaylist ? (
         <div>
-          {playlists.map((playlist) => (
-            <div key={playlist.id}>
-              <h2>{playlist.name}</h2>
-              <p>{playlist.description || "No description available"}</p>
-              <img
-                src={playlist.images[0]?.url}
-                alt={playlist.name}
-                style={{ width: "200px" }}
-              />
-            </div>
-          ))}
+          <h1>{selectedPlaylist.name}</h1>
         </div>
+      ) : (
+        <p>Please select a playlist from the sidebar</p>
       )}
     </div>
   );

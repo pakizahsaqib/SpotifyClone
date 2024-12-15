@@ -87,7 +87,7 @@ app.get("/auth/callback", async (req, res) => {
 
     // Use secure cookies or headers to pass the token to the frontend
     res.cookie("access_token", access_token, { httpOnly: true, secure: true });
-    res.redirect(`${FRONTEND_URL}/dashboard?access_token=${access_token}`);
+    res.redirect(`${FRONTEND_URL}?access_token=${access_token}`);
   } catch (error) {
     console.error(
       "Error during token exchange:",
